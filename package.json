@@ -1,0 +1,16 @@
+{
+  "name": "tdd",
+  "version": "0.0.1",
+  "description": "A package designed for learning tdd with javascript environment with basic data structures",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tdd",
+    "js",
+    "datastructures"
+  ],
+  "author": "Saiprasad",
+  "license": "ISC"
+}
