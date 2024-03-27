@@ -1,6 +1,5 @@
-/*This file contains the primeNumberConfirmation() function which logs the success if the argument passed is prime number
-otherwise throws an exception based on pre-conditions and post-conditions 
-You can import primeNumberConfirmation() through require function */
+/*This file contains the isPrime() function which throws an exception based on pre-conditions and post-conditions 
+You can import isPrime() through require function */
 
 
 //user-defined assertion function
@@ -12,50 +11,42 @@ const assert=(condition,message)=>{
 }
 
 
-const primeNumberConfirmation=(number)=>{
+const isPrime=(number)=>{
     //Pre-condition
-    assert(number>=2 && typeof number === 'number',"Input must be a number and greater than 2" );
+    if(assert(number>=2 && typeof number === 'number',"Input must be a number and greater than 2" )){
+        return;
+    }
     
 
     //validation of prime number
-    result=isPrime(number);
-    
-    //Post-condition
-    assert(result,"The number you have provided is not a prime Number");
-
-    //Finally if the input given is prime number this function logs the success
-    if(result===true){
-        console.log("It is a prime number");
-    }
-
-    
-}
-
-
-
-//function to validate a prime number
-const isPrime=(number)=>{
-    result=true;
     for(let i=2;i<=Math.sqrt(number);i++){
-        if(number%i===0){
-            result=false;
-        }
         
-    }
-    return result;
+            assert(number%i!==0,`${number} is not a prime number`);
+        
+         }
+   
+    
+    
+        return true;
+    
 
-
+    
 }
 
-module.exports={primeNumberConfirmation,isPrime,assert};
-//console.log(module);
 
-//primeNumberConfirmation(0);
-//primeNumberConfirmation(5);
-// primeNumberConfirmation(2);
-//primeNumberConfirmation(-2);
-//primeNumberConfirmation('a');
-primeNumberConfirmation(9);
+//post conditions
+assert(isPrime(11))
+assert(isPrime(5))
+assert(isPrime(0))
+assert(isPrime('a'))
+assert(isPrime(9))
+
+
+
+
+
+module.exports={isPrime,assert};
+
 
 
 
