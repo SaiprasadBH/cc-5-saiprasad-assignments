@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prime-run": "nodemon ./prime.js"
+    "prime-run": "nodemon ./prime.js",
+    "fib-run": "nodemon ./fibonacci.js"
   },
   "keywords": [
     "tdd",
