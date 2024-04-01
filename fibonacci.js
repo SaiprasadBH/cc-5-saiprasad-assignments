@@ -1,3 +1,5 @@
+import assert from "assert";
+
 /**
  * Calculates the nth Fibonacci number using a recursive approach with memoization.
  * @param {BigInt} n - The index of the Fibonacci number to calculate.
