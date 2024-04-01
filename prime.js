@@ -13,26 +13,22 @@ function isPrime(num) {
 }
 
 //post-conditions for isPrime
-try {
-  assert(isPrime(3), "isPrime(3) must return true");
-} catch (error) {
-  console.error(error.message);
-}
+assert.throws(() => {
+  isPrime("a");
+}, Error); //instead of assert(!isPrime("a"),"isPrime("a") must return false"); it's a better implementation
 
-try {
-  assert(isPrime(5), "isPrime(5) must return true");
-} catch (error) {
-  console.error(error.message);
-}
-
-try {
-  assert(isPrime("a") === false, "isPrime('a') must return false");
-} catch (error) {
-  console.error(error.message);
-}
+assert.throws(() => {
+  isPrime(-2);
+}, Error);
 
 try {
   assert(isPrime(9) === false, "isPrime(9) must return false");
+} catch (error) {
+  console.error(error.message);
+}
+
+try {
+  assert(isPrime(3), "isPrime(3) must return true");
 } catch (error) {
   console.error(error.message);
 }
@@ -58,31 +54,15 @@ function generatePrimeSeries(count) {
 }
 
 //post-conditions for generatePrimeSeries
+
+assert.throws(() => generatePrimeSeries("abc"), Error);
+assert.throws(() => generatePrimeSeries(-10), Error);
+
 try {
   assert.deepStrictEqual(
     generatePrimeSeries(2),
     [2, 3],
     "generatePrimeSeries(2) should return [2, 3]"
-  );
-} catch (error) {
-  console.error(error.message);
-}
-
-try {
-  assert.deepStrictEqual(
-    generatePrimeSeries("hello"),
-    [],
-    'generatePrimeSeries("hello") should return an empty array'
-  );
-} catch (error) {
-  console.error(error.message);
-}
-
-try {
-  assert.deepStrictEqual(
-    generatePrimeSeries(-1),
-    [],
-    "generatePrimeSeries(-1) should return an empty array"
   );
 } catch (error) {
   console.error(error.message);
