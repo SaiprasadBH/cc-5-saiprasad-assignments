@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import assert from "assert";
 
 /**
@@ -66,8 +65,6 @@ assert.equal(
   8n,
   "fibonacciNumber(6) must return 8"
 );
-||||||| parent of 74c22b0 (implemented fibonacci to work for large numbers)
-=======
 /**
  * Calculates the nth Fibonacci number using a recursive approach with memoization.
  * @param {BigInt} n - The index of the Fibonacci number to calculate.
@@ -133,4 +130,3 @@ assert.equal(
   8n,
   "fibonacciNumber(6) must return 8"
 );
->>>>>>> 74c22b0 (implemented fibonacci to work for large numbers)
