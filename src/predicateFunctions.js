@@ -1,3 +1,5 @@
+import { isNaN } from "lodash";
+
 /**
  * Predicate function to check if a value is a number.
  * @param {*} value - The value to be checked.
@@ -39,7 +41,8 @@ export function isArray(value) {
  * @param {*} value - The value to be checked.
  * @returns {boolean} True if the value is a boolean, false otherwise.
  */
-function isBoolean(value) {
+
+export function isBoolean(value) {
   return typeof value === "boolean";
 }
 

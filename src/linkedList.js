@@ -1,26 +1,4 @@
-//import assert from "assert";
 import { isEqual } from "lodash";
-
-/**
- * Creates a linked list from an array, another list, or initializes an empty linked list if no argument is provided.
- * @param {Array|Object} [arg] - An optional argument that can be an array or another linked list.
- * @returns {Object} An object representing the linked list with head and tail pointers initialized based on the provided argument.
- */
-export function createList(arg) {
-  const list = { head: null, tail: null };
-
-  if (Array.isArray(arg)) {
-    arg.forEach((data) => addItemToList(list, data));
-  } else if (typeof arg === "object") {
-    let currentNode = arg.head;
-    while (currentNode !== null) {
-      addItemToList(list, currentNode.data);
-      currentNode = currentNode.next;
-    }
-  }
-
-  return list;
-}
 
 /**
  * Adds data into a fresh node towards the end of the list.
@@ -29,17 +7,42 @@ export function createList(arg) {
  * @returns {Object} The newly created node.
  */
 export function addItemToList(listRef, data) {
-  const newNode = { data: data, next: null };
+  const nodeData = data;
+  const listReference = listRef;
+  const newNode = { data: nodeData, next: null };
 
-  if (listRef.head === null) {
-    listRef.head = newNode;
-    listRef.tail = newNode;
+  if (listReference.head === null) {
+    listReference.head = newNode;
+    listReference.tail = newNode;
   } else {
-    listRef.tail.next = newNode;
-    listRef.tail = newNode;
+    listReference.tail.next = newNode;
+    listReference.tail = newNode;
   }
 
   return newNode;
+}
+
+/**
+ * Creates a linked list from an array, another list, or initializes an empty linked list if no argument is provided.
+ * @param {Array|Object} [arg] - An optional argument that can be an array or another linked list.
+ * @returns {Object} An object representing the linked list with head and tail pointers initialized based on the provided argument.
+ */
+export function createList(arg) {
+  const list = { head: null, tail: null };
+  if (Array.isArray(arg)) {
+    arg.forEach((data) => addItemToList(list, data));
+  } else if (typeof arg === "object") {
+    if (arg.head === undefined || arg.tail === undefined || arg === undefined) {
+      return null;
+    }
+    let currentNode = arg.head;
+    while (currentNode !== null) {
+      addItemToList(list, currentNode.data);
+      currentNode = currentNode.next;
+    }
+  }
+
+  return list;
 }
 
 /**
@@ -55,7 +58,7 @@ export function arrayFromList(listRef) {
     array.push(lastNode.data);
     lastNode = lastNode.next;
   }
-  //array.push(lastNode.data);
+
   return array;
 }
 
@@ -66,11 +69,12 @@ export function arrayFromList(listRef) {
  */
 
 export function removeFromEnd(listRef) {
-  if (listRef.head === null) {
+  const listReference = listRef;
+  if (listReference.head === null) {
     return null;
   }
 
-  let currentNode = listRef.head;
+  let currentNode = listReference.head;
   let previousNode = null;
 
   while (currentNode.next !== null) {
@@ -79,13 +83,13 @@ export function removeFromEnd(listRef) {
   }
 
   if (previousNode === null) {
-    listRef.head = null;
-    listRef.tail = null;
+    listReference.head = null;
+    listReference.tail = null;
   } else {
-    listRef.tail = previousNode;
+    listReference.tail = previousNode;
     previousNode.next = null;
   }
-  const data = currentNode.data;
+  const { data } = currentNode;
   currentNode = null;
 
   return data;
@@ -100,27 +104,28 @@ export function removeFromEnd(listRef) {
  */
 
 export function insertBefore(listRef, listNode, data) {
-  if (listNode === null || listRef === null) {
+  const listReference = listRef;
+  if (listNode === null || listReference === null) {
     return null;
   }
 
-  const newNode = { data: data, next: null };
-  if (listRef.head === listNode) {
+  const newNode = { data, next: null };
+  if (listReference.head === listNode) {
     // If listNode is the head
     newNode.next = listNode;
-    listRef.head = newNode;
-    return listRef;
-  } else {
-    let currentNode = listRef.head;
-    let previousNode = null;
-    while (currentNode !== listNode) {
-      previousNode = currentNode;
-      currentNode = currentNode.next;
-    }
-    previousNode.next = newNode;
-    newNode.next = currentNode;
+    listReference.head = newNode;
+    return listReference;
   }
-  return listRef;
+  let currentNode = listReference.head;
+  let previousNode = null;
+  while (currentNode !== listNode) {
+    previousNode = currentNode;
+    currentNode = currentNode.next;
+  }
+  previousNode.next = newNode;
+  newNode.next = currentNode;
+
+  return listReference;
 }
 
 /**
@@ -131,21 +136,22 @@ export function insertBefore(listRef, listNode, data) {
  * @returns {Object} Reference to the modified linked list.
  */
 export function insertAfter(listRef, listNode, data) {
-  if (listNode === null || listRef === null) {
+  const listReference = listRef;
+  if (listNode === null || listReference === null) {
     return null;
   }
-  const newNode = { data: data, next: null };
-  let currentNode = listRef.head;
+  const newNode = { data, next: null };
+  let currentNode = listReference.head;
   while (currentNode !== listNode) {
     currentNode = currentNode.next;
   }
   newNode.next = currentNode.next;
   currentNode.next = newNode;
   if (newNode.next === null) {
-    listRef.tail = newNode;
+    listReference.tail = newNode;
   }
 
-  return listRef;
+  return listReference;
 }
 
 /**
@@ -155,11 +161,12 @@ export function insertAfter(listRef, listNode, data) {
  * @returns {Object} Reference to the modified linked list.
  */
 export function removeItem(listRef, listItem) {
-  if (listRef === null || listItem === null) {
+  const listReference = listRef;
+  if (listReference === null || listItem === null) {
     return null;
   }
 
-  let currentNode = listRef.head;
+  let currentNode = listReference.head;
   let previousNode = null;
 
   while (currentNode !== null && !isEqual(currentNode.data, listItem)) {
@@ -169,21 +176,21 @@ export function removeItem(listRef, listItem) {
 
   if (currentNode !== null) {
     if (previousNode === null) {
-      listRef.head = currentNode.next;
+      listReference.head = currentNode.next;
       if (currentNode === listRef.tail) {
-        listRef.tail = previousNode;
+        listReference.tail = previousNode;
       }
     } else {
       previousNode.next = currentNode.next;
       if (currentNode === listRef.tail) {
-        listRef.tail = previousNode;
+        listReference.tail = previousNode;
       }
     }
   } else {
     return null;
   }
   currentNode = null;
-  return listRef;
+  return listReference;
 }
 
 /**

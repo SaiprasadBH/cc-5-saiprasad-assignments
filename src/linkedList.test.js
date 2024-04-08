@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+// import { test, expect } from "vitest";
 import {
   createList,
   addItemToList,
@@ -8,36 +8,28 @@ import {
   removeFromEnd,
   removeItem,
   filterList,
-} from "./linkedList.js";
+} from "./linkedList";
 
-import {
-  isArray,
-  isBoolean,
-  isNumber,
-  isString,
-  isUndefined,
-  isNull,
-  isObject,
-} from "./predicateFunctions.js";
+import { isNumber, isString, isObject, isBoolean } from "./predicateFunctions";
 
 test("linked list test", () => {
   const listRef = createList();
   expect(listRef).toBeDefined();
   expect(listRef.head).toBeNull();
 
-  //adding first item
+  // adding first item
   const listNode = addItemToList(listRef, 1);
   expect(listNode).toBeDefined();
   expect(listRef.head).toBe(listNode);
   expect(listNode.data).toBe(1);
   expect(listNode.next).toBeNull();
 
-  //adding another item
+  // adding another item
   const listNode2 = addItemToList(listRef, 2);
   expect(listNode2.next).toBeNull();
   expect(listNode.next).toBe(listNode2);
 
-  //adding another item
+  // adding another item
   const listNode3 = addItemToList(listRef, { name: "saiprasad", age: 21 });
   expect(listNode3.data).toStrictEqual({ name: "saiprasad", age: 21 });
   expect(listNode3.next).toBeNull();
@@ -51,7 +43,9 @@ test("insertBefore inserts the specified item before the given node", () => {
   const listRef = createList();
 
   const listNode1 = addItemToList(listRef, 1);
+  expect(listNode1.data).toBe(1);
   const listNode2 = addItemToList(listRef, 2);
+  expect(listNode2.data).toBe(2);
   const listNode3 = addItemToList(listRef, { name: "saiprasad", age: 21 });
 
   const head1 = insertBefore(listRef, listNode3, 3);
@@ -79,6 +73,7 @@ test("insertAfter inserts the specified item after the given node", () => {
 
   const listNode2 = addItemToList(listRef, 2);
   const listNode3 = addItemToList(listRef, { name: "saiprasad", age: 21 });
+  expect(listNode3.data).toStrictEqual({ name: "saiprasad", age: 21 });
 
   const head3 = insertAfter(listRef, listNode2, 5);
 
@@ -118,12 +113,15 @@ test("Handling null values for insert and remove operations", () => {
   expect(removeItem(listRef, listNode10)).toBeNull();
 });
 
-//writing multiple tests to removeItem.
+// writing multiple tests to removeItem.
 test("removeItem removes the specified item from the linked list", () => {
   const listRef = createList();
   const listNode1 = addItemToList(listRef, 1);
+  expect(listNode1.data).toBe(1);
   const listNode2 = addItemToList(listRef, 2);
+  expect(listNode2.data).toBe(2);
   const listNode3 = addItemToList(listRef, 3);
+  expect(listNode3.data).toBe(3);
   const newListRef = removeItem(listRef, listNode2.data);
   expect(arrayFromList(newListRef)).toEqual([1, 3]);
 });
@@ -140,6 +138,8 @@ test("removeItem returns null if the item to remove is not found in the list", (
 });
 
 test("createList test", () => {
+  const someNode = {};
+  expect(createList(someNode)).toBeNull();
   const emptyList = createList();
   expect(emptyList.head).toBeNull();
   expect(arrayFromList(emptyList)).toEqual([]);
@@ -155,20 +155,31 @@ test("createList test", () => {
   expect(arrayFromList(emptyListNoArg)).toEqual([]);
 });
 
-//tests for filter function
+// tests for filter function
 test("filter list according to datatype", () => {
-  const listRef = createList([1, 2, 3, { name: "saiprasad" }, 4, "hello"]);
+  const listRef = createList([
+    1,
+    2,
+    3,
+    { name: "saiprasad" },
+    4,
+    "hello",
+    true,
+  ]);
   expect(filterList(listRef, isNumber)).toEqual([1, 2, 3, 4]);
   expect(filterList(listRef, isString)).toEqual(["hello"]);
   expect(filterList(listRef, isObject)).toStrictEqual([{ name: "saiprasad" }]);
+  expect(filterList(listRef, isBoolean)).toStrictEqual([true]);
 });
 
 test("updating tail position", () => {
   const listRef = createList([1, 2, 3, 4, 5]);
   expect(listRef.tail.data).toEqual(5);
   const item = removeFromEnd(listRef);
+  expect(item).toBe(5);
   expect(listRef.tail.data).toEqual(4);
   const head1 = removeItem(listRef, 4);
+  expect(head1).toBe(listRef);
   expect(listRef.tail.data).toEqual(3);
   const lastnode = addItemToList(listRef, 10);
   expect(insertAfter(listRef, lastnode, 11).tail.data).toEqual(11);

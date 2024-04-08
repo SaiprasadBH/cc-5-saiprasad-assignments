@@ -7,17 +7,18 @@ import assert from "assert";
  * @returns {BigInt} The nth Fibonacci number.
  */
 function fibonacciNumberRecursiveMemo(n, memo = {}) {
-  if (n in memo) {
-    return memo[n];
+  const memoObj = memo;
+  if (n in memoObj) {
+    return memoObj[n];
   }
 
   if (n === 0n) return 0n; // Use BigInt literal 0n
   if (n === 1n) return 1n; // Use BigInt literal 1n
 
-  memo[n] =
-    fibonacciNumberRecursiveMemo(n - 1n, memo) +
-    fibonacciNumberRecursiveMemo(n - 2n, memo); // Use BigInt literals
-  return memo[n];
+  memoObj[n] =
+    fibonacciNumberRecursiveMemo(n - 1n, memoObj) +
+    fibonacciNumberRecursiveMemo(n - 2n, memoObj); // Use BigInt literals
+  return memoObj[n];
 }
 
 assert.throws(() => {
@@ -28,12 +29,12 @@ assert.throws(() => {
   fibonacciNumberRecursiveMemo(-10n); // Use BigInt literal -10n
 }, Error);
 
-//large number
+// large number
 assert.strictEqual(
   fibonacciNumberRecursiveMemo(100n).toString(),
   "354224848179261915075",
   "fibonacciNumber(100) should return 354224848179261915075"
-); //runs for large number as well
+); // runs for large number as well
 
 assert.equal(
   fibonacciNumberRecursiveMemo(1n),

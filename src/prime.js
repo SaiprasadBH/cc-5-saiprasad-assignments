@@ -1,7 +1,7 @@
 import assert from "assert";
 
 export function isPrime(num) {
-  //pre-conditions for isPrime
+  //  pre-conditions for isPrime
   assert(typeof num === "number" && num > 1, "must be a number greater than 1");
   if (num <= 3) return true;
 
@@ -19,7 +19,7 @@ export function isPrime(num) {
 }
 
 export function generatePrimeSeries(count) {
-  //pre-conditions for generatePrieSeries
+  // pre-conditions for generatePrieSeries
   assert(typeof count === "number", "argument must be a number");
   assert(count > 0, "argument must be greater than 0");
 
@@ -31,6 +31,7 @@ export function generatePrimeSeries(count) {
         series.push(num);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error.message);
     }
     num++;

@@ -1,7 +1,6 @@
 import { expect, test } from "vitest";
-import assert from "assert";
+
 import { isPrime, generatePrimeSeries } from "./prime";
-import exp from "constants";
 
 test("isPrime tests", () => {
   expect(() => {
