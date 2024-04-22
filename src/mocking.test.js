@@ -1,4 +1,4 @@
-import { isValidPurchase } from "./mocking";
+import isValidPurchase from "./mocking";
 
 describe("purchase module tests", () => {
   test("purchase only within business time 9-5", () => {

@@ -21,62 +21,43 @@ export default class LinkedList {
   /**
    * Create a new LinkedList.
    */
-  constructor() {
+  constructor(data) {
     this.firstNode = null;
     this.lastNode = null;
-  }
 
-  /**
-   * Initialize the linked list with provided data.
-   * @param {Array|LinkedList} data - The data to initialize the list with.
-   * If `data` is an array, it initializes the list with the elements of the array.
-   * If `data` is another LinkedList, it initializes this list as a copy of `data`.
-   * If `data` is `undefined`, the list remains empty.
-   */
+    if (data !== undefined) {
+      assert(
+        Array.isArray(data) || data instanceof LinkedList,
+        "The argument must be an array or a LinkedList"
+      );
 
-  initializeList(data) {
-    assert(
-      data === undefined || Array.isArray(data) || data instanceof Object,
-      "The argument must be undefined, an array, or a list"
-    );
-
-    if (data === undefined) {
-      this.firstNode = null;
-      this.lastNode = null;
-      return;
-    }
-
-    if (Array.isArray(data)) {
-      this.firstNode = null;
-      this.lastNode = null;
-      for (let i = data.length - 1; i >= 0; i--) {
-        const newNode = new Node(data[i]);
-        newNode.nextNode = this.firstNode;
-        this.firstNode = newNode;
-        if (this.lastNode === null) {
-          this.lastNode = newNode;
+      if (Array.isArray(data)) {
+        for (let i = data.length - 1; i >= 0; i--) {
+          const newNode = new Node(data[i]);
+          newNode.nextNode = this.firstNode;
+          this.firstNode = newNode;
+          if (this.lastNode === null) {
+            this.lastNode = newNode;
+          }
+        }
+      } else {
+        let currentNode = data.firstNode;
+        while (currentNode !== null) {
+          const newNode = new Node(currentNode.data);
+          if (this.firstNode === null) {
+            this.firstNode = newNode;
+            this.lastNode = newNode;
+          } else {
+            this.lastNode.nextNode = newNode;
+            this.lastNode = newNode;
+          }
+          currentNode = currentNode.nextNode;
         }
       }
-      return;
-    }
-
-    assert(
-      data instanceof Object,
-      "The item must be a list to create another list"
-    );
-    let currentNode = data.firstNode;
-    while (currentNode !== null) {
-      const newNode = new Node(currentNode.data);
-      if (this.firstNode === null) {
-        this.firstNode = newNode;
-        this.lastNode = newNode;
-      } else {
-        this.lastNode.nextNode = newNode;
-        this.lastNode = newNode;
-      }
-      currentNode = currentNode.nextNode;
     }
   }
+
+ 
 
   /**
    * Add data to the end of the list.
