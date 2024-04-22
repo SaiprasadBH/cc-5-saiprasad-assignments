@@ -5,11 +5,7 @@ import { isNumber } from "./predicateFunctions";
 describe("Linked List Oops basic implementation tests", () => {
   let listRef = null;
   beforeEach(() => {
-    listRef = new LinkedList();
-    listRef.addData(1);
-    listRef.addData("hello");
-    listRef.addData([2]);
-    listRef.addData({ name: "saiprasad", age: 22 });
+    listRef = new LinkedList([1, "hello", [2], { name: "saiprasad", age: 22 }]);
   });
   afterEach(() => {
     listRef = null;
@@ -17,32 +13,16 @@ describe("Linked List Oops basic implementation tests", () => {
 
   test("Linked List creation tests", () => {
     const emptyList = new LinkedList();
-    emptyList.initializeList();
     expect(emptyList.firstNode).toBeNull();
     expect(emptyList.lastNode).toBeNull();
 
     const arrayWithData = [1, "hello", { key1: 0 }, 2.0];
-    const listFromArray = new LinkedList();
-    listFromArray.initializeList(arrayWithData);
+    const listFromArray = new LinkedList(arrayWithData);
     expect(listFromArray.firstNode.data).toBe(1);
     expect(listFromArray.lastNode.data).toBe(2.0);
 
-    const objectWithData = {
-      firstNode: {
-        data: "one",
-        nextNode: {
-          data: "two",
-          nextNode: {
-            data: { three: 3 },
-            nextNode: { data: 4.0, nextNode: null },
-          },
-        },
-      },
-    };
-    const listFromList = new LinkedList();
-    listFromList.initializeList(objectWithData);
-    expect(listFromList.firstNode.data).toBe("one");
-    expect(listFromList.lastNode.data).toBe(4.0);
+    const anotherList = new LinkedList(listRef);
+    expect(anotherList.toArray()).toEqual([1, "hello", [2], { name: "saiprasad", age: 22 }]);
   });
 
   test("Adding item to list tests", () => {
@@ -99,7 +79,7 @@ describe("Linked List Oops basic implementation tests", () => {
     expect(listRef.firstNode.data).toEqual("sirsi");
   });
 
-  test("filter fuction tests", () => {
+  test("filter function tests", () => {
     expect(listRef.filter(isNumber)).toEqual([1]);
   });
 
