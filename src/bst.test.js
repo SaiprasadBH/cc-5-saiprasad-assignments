@@ -1,10 +1,11 @@
 import { BinarySearchTree } from "./bst";
+import { lessThan } from "./comparision";
 
 describe("Binary Search Tree Tests", () => {
   let bst;
 
   beforeEach(() => {
-    bst = new BinarySearchTree();
+    bst = new BinarySearchTree(lessThan);
     bst.insertNode(5);
     bst.insertNode(3);
     bst.insertNode(7);

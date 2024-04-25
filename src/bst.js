@@ -1,4 +1,3 @@
-import { lessThan, greaterThan } from "./comparision";
 /**
  * Represents a node in a Binary Search Tree.
  */
@@ -21,8 +20,9 @@ export class BinarySearchTree {
   /**
    * Create a new Binary Search Tree.
    */
-  constructor() {
+  constructor(compare) {
     this.root = null;
+    this.compare = compare;
   }
 
   /**
@@ -45,7 +45,7 @@ export class BinarySearchTree {
    */
   insertNodeRecursively(parentNode, newNode) {
     const parent = parentNode;
-    if (lessThan(newNode.data, parent.data)) {
+    if (this.compare(newNode.data, parent.data)) {
       if (parent.left === null) {
         parent.left = newNode;
       } else {
@@ -77,11 +77,11 @@ export class BinarySearchTree {
     if (currentNode === null) {
       return null;
     }
-    if (lessThan(key, currentNode.data)) {
+    if (this.compare(key, currentNode.data)) {
       currentNode.left = this.removeNode(currentNode.left, key);
       return currentNode;
     }
-    if (greaterThan(key, currentNode.data)) {
+    if (this.compare(currentNode.data, key)) {
       currentNode.right = this.removeNode(currentNode.right, key);
       return node;
     }
@@ -194,7 +194,7 @@ export class BinarySearchTree {
     if (data === node.data) {
       return true;
     }
-    if (lessThan(data, node.data)) {
+    if (this.compare(data, node.data)) {
       return this.search(node.left, data);
     }
     return this.search(node.right, data);
