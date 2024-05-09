@@ -5,7 +5,7 @@
  */
 function createNode(data) {
   return {
-    data: data,
+    data,
     nextNode: null,
   };
 }
