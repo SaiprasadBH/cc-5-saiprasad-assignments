@@ -1,12 +1,4 @@
 node_modules
 src/assignment/textFiles
 src/assignment/sessionLearn
-cc5-saiprasad-assignment2/src/package.json
-cc5-saiprasad-assignment2/.eslintrc.json
-cc5-saiprasad-assignment2/.npmrc
-cc5-saiprasad-assignment2/eslint.config.mjs
 cc5-saiprasad-assignment2/node_modules
-cc5-saiprasad-assignment2/package-lock.json
-cc5-saiprasad-assignment2/package.json
-cc5-saiprasad-assignment2/tsconfig.json
-cc5-saiprasad-assignment2/vitest.config.ts
